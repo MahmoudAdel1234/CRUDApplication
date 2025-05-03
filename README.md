@@ -4,7 +4,7 @@ ASP.NET Core Web API (hosted on a remote server)
 
 ## 🌐 Live Backend API
 
-**Base URL**: `http://employeecrudsystem.runasp.net/api`  
+**Base URL**: `https://employeecrudsystem.runasp.net/api`  
 
 
 Example endpoints:
