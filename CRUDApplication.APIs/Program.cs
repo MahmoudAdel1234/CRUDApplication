@@ -17,6 +17,13 @@ namespace CRUDApplication.APIs
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Add HTTPS redirection
+            builder.Services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+                options.HttpsPort = 7186;
+            });
+
             // CORS configuration
             builder.Services.AddCors(options =>
             {
@@ -38,6 +45,9 @@ namespace CRUDApplication.APIs
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee CRUD API");
                 c.RoutePrefix = "";  // Set Swagger as the root page
             });
+
+            // Add HTTPS redirection middleware
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseRouting();
