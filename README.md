@@ -1,4 +1,4 @@
-# CRUDApplication
+# Employee Management System
 
 ASP.NET Core Web API (hosted on a remote server)
 
