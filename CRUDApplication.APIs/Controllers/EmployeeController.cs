@@ -74,7 +74,7 @@ namespace CRUDApplication.APIs.Controllers
             try
             {
                 await _employeeManager.AddEmployeeAsync(employeeDto);
-                return Ok("Employee added successfully.");
+                return Ok(new { message = "Employee added successfully." });
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace CRUDApplication.APIs.Controllers
             try
             {
                 await _employeeManager.UpdateEmployeeAsync(id,employeeDto);
-                return Ok("Employee updated successfully.");
+                return Ok(new { message = "Employee updated successfully." });
             }
             catch (Exception ex)
             {
@@ -109,7 +109,7 @@ namespace CRUDApplication.APIs.Controllers
             try
             {
                 await _employeeManager.DeleteEmployeeAsync(id);
-                return Ok("Employee deleted successfully.");
+                return Ok(new { message = "Employee deleted successfully." });
             }
             catch (Exception ex)
             {

@@ -12,46 +12,43 @@ namespace CRUDApplication.APIs
 
             // Add services to the container.
             builder.Services.AddDataAccessServices(builder.Configuration);
-
             builder.Services.AddBusinessServices();
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Add CORS
-            // In your CORS configuration
+            // CORS configuration
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngularApp",
                     builder =>
                     {
-                        builder.SetIsOriginAllowed(origin => true)
+                        builder.AllowAnyOrigin()
                                .AllowAnyMethod()
-                               .AllowAnyHeader()
-                               .AllowCredentials();
+                               .AllowAnyHeader();
                     });
             });
 
-
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            // Always enable Swagger for this deployment
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee CRUD API");
+                c.RoutePrefix = "";  // Set Swagger as the root page
+            });
 
+            app.UseStaticFiles();
+            app.UseRouting();
             app.UseCors("AllowAngularApp");
-
-
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
+            
+            // Add default route handling
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            
             app.MapControllers();
 
             app.Run();
